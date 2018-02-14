@@ -1,0 +1,27 @@
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #324057;
+  .form-contianer {
+    max-width: 420px;
+    width: 96%;
+    margin: 0 auto;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #fff;
+    .submit-btn{
+      width: 100%;
+      font-size: 16px;
+    }
+  }
+  .manage-title {
+    padding: 20px 0;
+    font-size: 34px;
+    color: #324057;;
+  }
+  .el-form {
+    padding: 25px 20px 48px 20px;
+  }
+}

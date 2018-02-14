@@ -1,0 +1,2 @@
+export const UPDATEDATE = 'UPDATEDATE'
+export const UPDATECODE = 'UPDATECODE'
