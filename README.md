@@ -4,5 +4,5 @@
 技术栈：Vue、Vue Router、Vuex、Axios、Element-ui、Vue-highcharts、Express、Mysql。
 
 
-## [Stock](./stock/)
+## [douhu](./douhu/)
 技术栈：Vue、Vue Router、Axios、Element-ui、Express、Mysql。
