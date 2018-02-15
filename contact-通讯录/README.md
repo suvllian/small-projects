@@ -1,8 +1,6 @@
 # stock-front
 
 ## Preview
-Link：<a href="http://suvllian.com/douhu/#/" target="_blank">douhu</a>
-
 ![index page](./preview-images/index.png)
 
 ![list page](./preview-images/list.png)
@@ -11,7 +9,7 @@ Link：<a href="http://suvllian.com/douhu/#/" target="_blank">douhu</a>
 
 ## Keywords  
 Vue、Vue Router、Axios、Element-ui.  
-Express、Mysql.
+PHP、Mysql.
 
 ## Description
 ### Front End
@@ -20,7 +18,7 @@ Express、Mysql.
 
 ### Back End  
 
-Express操作数据库，处理文件上传。  
+PHP处理请求，进行权限校验。  
 
 ## Front End Build Setup
 ``` bash
@@ -35,13 +33,4 @@ npm run build
 
 # build for production and view the bundle analyzer report
 npm run build --report
-```
-
-## Back End Build Setup
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:9000
-npm run start
 ```

@@ -7,7 +7,7 @@ Link：<a href="http://47.100.104.209" target="_blank">stock information</a>
 
 ![specific page](./preview-images/specific.png)
 
-## Keyword  
+## Keywords  
 Vue、Vue Router、Vuex、Axios、Element-ui、Vue-highcharts.  
 Express、Mysql、Watch.
 

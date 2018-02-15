@@ -33,19 +33,6 @@ CREATE TABLE IF NOT EXISTS `admin` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
---
--- 转存表中的数据 `admin`
---
-
-INSERT INTO `admin` (`id`, `name`, `pass`) VALUES
-(1, 'maimang', '5f562827162524a2a8f33cb78753f345');
-
--- --------------------------------------------------------
-
---
--- 表的结构 `article`
---
-
 CREATE TABLE IF NOT EXISTS `article` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` text NOT NULL,
