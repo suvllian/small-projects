@@ -1,4 +1,4 @@
-# small-projects
+# small-fullstack-projects
 
 ## [Stock-股票](./stock/)
 技术栈：Vue、Vue Router、Vuex、Axios、Element-ui、Vue-highcharts、Express、Mysql。

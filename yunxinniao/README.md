@@ -1,7 +1,7 @@
 # stock-front
 
 ## Preview
-Link：<a href="http://yunxinniao.com" target="_blank">麦芒音乐</a>
+Link：<a href="http://yunxinniao.com" target="_blank">云信鸟</a>
 
 ![index page](./preview-images/index.png)
 
