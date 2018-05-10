@@ -6,10 +6,6 @@ export default class VideoList extends Component {
 		super(props)
 	}
 
-	playVideo(title, src) {
-		this.props.playVideo(title, src)
-	}
-
 	render() {
 		const { videoList, title } = this.props
 
@@ -23,10 +19,11 @@ export default class VideoList extends Component {
 						videoList.map((item, index) =>
 							<div className="col-md-3" key={index}>
 								<a href="/#/home/play" target="_blank">
-									<div className="news-block" onClick={this.playVideo.bind(this, item.aTime, item.videoSrc)}>
+									<div className="news-block">
 										<img src={item.imgSrc} className="response-img" />
 										<div className="news-info">
 											<p>{item.aTime}</p>
+											<p>{item.content}</p>
 										</div>
 									</div>
 								</a>

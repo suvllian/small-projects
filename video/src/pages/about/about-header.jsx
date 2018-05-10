@@ -6,6 +6,7 @@ const navItems = [
 	{ title: "讯澜大事记", isCurrent: false}
 ]
 
+
 export default class AboutHeader extends Component{
 	render() {
 		return (

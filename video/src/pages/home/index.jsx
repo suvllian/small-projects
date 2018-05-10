@@ -5,7 +5,7 @@ import HomeNav from './nav.jsx';
 import VideoList from './video-list.jsx';
 import VideoPlay from './video-play.jsx';
 import Connect from './connect.jsx';
-import Hot from './hot.jsx';
+import Hot from './hot.jsx'
 import api from './../../api'
 
 export default class Home extends Component {
@@ -49,7 +49,7 @@ export default class Home extends Component {
 				<Slider slider={sliderImage} />
 				<HomeNav navs={navs} changeNav={this.changeNav.bind(this)} />
 				{
-					showType === 'play' ? <VideoPlay title='视频' src="http://127.0.0.1/1.mp4" /> : (
+					showType === 'play' ? <VideoPlay title='视频' src="http://suvllian.top/walk.mp4" /> : (
 						<div>
 							<VideoList videoList={newsList} title="最新视频" />
 							<VideoList videoList={newsList} title="最热视频" />
