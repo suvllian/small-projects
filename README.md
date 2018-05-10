@@ -14,3 +14,6 @@
 
 ## [Contact-通讯录](./contact/)
 技术栈：Vue、Vue Router、Axios、Element-ui、PHP、Mysql。
+
+## [Video-视频点播](./video/)
+技术栈：React、React Router、Redux、Axios、Express、Mysql。。
