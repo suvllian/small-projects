@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 require("./index.scss");
 
+const bannerItems = [
+	{ src: 'home-1.jpg' },
+	{ src: 'home-2.jpg' },
+	{ src: 'home-3.jpg' }
+]
+
 export default class Slider extends Component{
 	constructor(props) {
 		super(props);
@@ -15,12 +21,12 @@ export default class Slider extends Component{
 			<div className="slider" ref="sliderContainer">
 				<ul className="slider-items">
 				{	
-					this.props.slider.map((item, index) =>
+					bannerItems.map((item, index) =>
 					{
 						let klass = ((index+1) == this.state.currentItem) ? 
 						  "slider-item slider-active" : "slider-item";
 						return (
-							<a target="_blank" href={item.link} key={index}>
+							<a href="#" key={index}>
 							  <li className={klass}>
 							    <img src={require("./../../assets/" + item.src)} />
 							  </li>
@@ -37,7 +43,7 @@ export default class Slider extends Component{
 		let next = 0,
 	      now = this.state.currentItem;
 		
-		if (now == this.props.slider.length) {
+		if (now == bannerItems.length) {
 			next = 1;
 		} else {
 			next = now + 1;

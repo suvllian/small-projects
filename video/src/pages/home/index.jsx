@@ -13,9 +13,7 @@ export default class Home extends Component {
 		super(props);
 
 		this.state = {
-			sliderImage: [],
-			hotImage: [],
-			newsList: [],
+			videoList: [],
 			navs: ['首页', '电视剧', '电影', '综艺', '纪录片', '音乐', '动画'],
 			playStatus: false //list
 		}
@@ -28,9 +26,7 @@ export default class Home extends Component {
 
 	getIndexData() {
 		api.getIndexData().then((data) => {
-			this.setState({ sliderImage: data.banner });
-			this.setState({ hotImage: data.hot });
-			this.setState({ newsList: data.news });
+			this.setState({ videoList: data.data });
 		})
 	}
 
@@ -41,22 +37,22 @@ export default class Home extends Component {
 	}
 
 	render() {
-		const { sliderImage, hotImage, newsList, navs } = this.state;
+		const { videoList, navs } = this.state;
 		const showType = this.props.params.type
 
 		return (
 			<div>
-				<Slider slider={sliderImage} />
+				<Slider />
 				<HomeNav navs={navs} changeNav={this.changeNav.bind(this)} />
 				{
 					showType === 'play' ? <VideoPlay title='视频' src="http://suvllian.top/walk.mp4" /> : (
 						<div>
-							<VideoList videoList={newsList} title="最新视频" />
-							<VideoList videoList={newsList} title="最热视频" />
+							<VideoList videoList={videoList} title="最新视频" />
+							<VideoList videoList={videoList} title="最热视频" />
 						</div>
 					)
 				}
-				<Hot hot={hotImage} />
+				<Hot />
 			</div>
 		)
 	}

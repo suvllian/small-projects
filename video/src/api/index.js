@@ -7,11 +7,9 @@ exports.login = (formData) => {
 }
 
 exports.getIndexData = () => {
-	let data = "concrete=getIndexData";
-	return getFetch(data);
+	return getFetch('get_index_info');
 }
 
-exports.getAboutData = () => {
-	let data = "concrete=getAboutData";
-	return getFetch(data);
+exports.login = (data) => {
+	return postFetch('login', data);
 }

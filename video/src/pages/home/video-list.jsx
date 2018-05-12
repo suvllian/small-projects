@@ -16,7 +16,7 @@ export default class VideoList extends Component {
 				</div>
 				<div className="row">
 					{
-						videoList.map((item, index) =>
+						videoList && videoList.map((item, index) =>
 							<div className="col-md-3" key={index}>
 								<a href="/#/home/play" target="_blank">
 									<div className="news-block">

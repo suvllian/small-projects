@@ -1,7 +1,11 @@
 module.exports = {
 	/*
-	 * 根据openid获取userid
+	 * 获取videoList
 	 */
-	query_userid_by_openid: 'SELECT id FROM user WHERE open_id = ? AND phone = ?'
+	query_videos: 'SELECT * FROM videoList ORDER BY id DESC LIMIT 0, 7',
+	/**
+	 * 查询用户密码
+	 */
+	query_user_password: 'SELECT password FROM user WHERE username = ?'
 }
 

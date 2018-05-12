@@ -11,7 +11,7 @@ export default class Nav extends Component {
 		this.state = {
 			items: [
 				{ title: "首页", link: "/", isActive: true },
-				{ title: "个人中心", link: "/person", isActive: true },
+				{ title: "个人中心", link: "/login", isActive: true },
 				// { title: "关于讯澜" , link: "/about", isActive: false},
 				// { title: "加入讯澜" , link: "/about", isActive: false}
 			],

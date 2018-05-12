@@ -1,7 +1,6 @@
 import fetch from 'isomorphic-fetch'
 
-const URL = "http://suvllian.top/video/index.php";
-// const URL = "http://127.0.0.1/xunlan/index.php";
+const URL = location.href.includes('localhost') ?  "http://localhost:9000" : "http://suvllian.top/video/index.php"
 
 const getInit = {
 	method: "GET",
@@ -14,16 +13,18 @@ const postInit = (formData) => {
 		method: "POST",
 		mode: "cors",
 		cache: "default",
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded'
+		},
 		body: formData
 	}
 }
 
-exports.postFetch = (formData) => {
-	let data = postInit(formData);
-	return fetch(URL, data).then(response => response.json());
+exports.postFetch = (path, formData) => {
+	return fetch(`${URL}/${path}`, postInit(formData)).then(response => response.json());
 }
 
-exports.getFetch = (data) => {
-	let urlWithParams = URL + "?" + data;
+exports.getFetch = (path) => {
+	let urlWithParams = URL + "/" + path;
 	return fetch(urlWithParams).then(response => response.json());
 }
