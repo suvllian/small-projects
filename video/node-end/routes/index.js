@@ -33,11 +33,18 @@ router.post('/login', function(req, res, next) {
   const { username, password } = req.body
 
   new Model('query_user_password').operate([username]).then(result => {
-    return result && result.length > 0 ? utils.successRes(res, {
-      csrf_token: encodeURI(username)
-    }) : utils.failRes(res, {
-      msg: '用户不存在'
-    })
+    if (result.length === 0 || !result) {
+      return utils.failRes(res, {
+        msg: '用户不存在'
+      })
+    }
+
+    if (result && result[0] && result[0].password == password) {
+      return utils.successRes(res, {
+        userId: result[0].id,
+        csrf_token: encodeURI(username)
+      })
+    }
   }).catch(error => {
     console.log(error)
     return utils.failRes(res, {
@@ -52,9 +59,9 @@ router.post('/register', function(req, res, next) {
   const { username, password } = req.body
 
   new Model('insert_new_user').operate([username, password]).then(result => {
-    console.log(result)
+    const { insertId } = result
 
-    return result && result.length > 0 ? utils.successRes(res, {
+    return insertId ? utils.successRes(res, {
       csrf_token: encodeURI(username)
     }) : utils.failRes(res, {
       msg: '注册失败'
@@ -67,6 +74,5 @@ router.post('/register', function(req, res, next) {
     })
   })
 })
-
 
 module.exports = router;

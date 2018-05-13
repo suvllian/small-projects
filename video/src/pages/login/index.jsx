@@ -1,27 +1,41 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux'
+import { hashHistory } from 'react-router'
 import api from './../../api'
+import { fetchPostsIfNeeded } from '../../actions/user'
 
-export default class Login extends Component {
+class Login extends Component {
 	constructor(props) {
 		super(props)
 	}
 
+	componentWillReceiveProps(nextProps) {
+		const { userId } = nextProps
+
+		if (userId) {
+			hashHistory.push('/')
+		}
+	}
+
+	componentDidMount() {
+		const { userId } = this.props
+		
+		if (userId) {
+			hashHistory.push('/')
+		}
+	}
+
 	login() {
+		const { fetchPostsIfNeeded } = this.props
 		const username = this.refs.username.value
 		const password = this.refs.password.value
-		
+
 		if (!username || !password) {
-			return 
+			return
 		}
 
-		const data = {
-			username, password
-		}
-
-		api.login(`username=${username}&password=${password}`).then((res) => {
-			console.log(res)
-		})
+		fetchPostsIfNeeded(api.loginFetch, `username=${username}&password=${password}`)
 	}
 
 	render() {
@@ -39,3 +53,14 @@ export default class Login extends Component {
 		)
 	}
 }
+
+const getUser = state => {
+	return {
+		userId: state.user.userId
+	}
+}
+
+export default connect(
+	getUser,
+	{ fetchPostsIfNeeded }
+)(Login)

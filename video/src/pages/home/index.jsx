@@ -8,7 +8,7 @@ import Connect from './connect.jsx';
 import Hot from './hot.jsx'
 import api from './../../api'
 
-export default class Home extends Component {
+class Home extends Component {
 	constructor(props) {
 		super(props);
 
@@ -57,3 +57,5 @@ export default class Home extends Component {
 		)
 	}
 }
+
+export default Home

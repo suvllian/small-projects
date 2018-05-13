@@ -320,3 +320,51 @@
 .video-player {
   max-width: 100%;
 }
+
+.comment-container {
+  
+}
+
+.comment-submit {
+  text-align: right;
+
+  button {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 3px;
+    background-color: #00adb5;
+    color: #fff;
+    cursor: pointer;
+  }
+}
+
+#comment-input {
+  width: 98%;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+}
+
+.comment {
+  &-title {
+    margin-top: 50px;
+    margin-bottom: 10px;
+  }
+  &-list {
+    padding-top: 20px;
+    border-top: 2px dotted #eee;
+  }
+  &-info {
+    display: flex;
+    margin-bottom: 10px;
+  }
+
+  &-username {
+    margin-right: 30px;
+  }
+
+  &-item {
+    margin-bottom: 30px;
+    color: #000;
+  }
+}
