@@ -18,6 +18,6 @@ module.exports = {
 	/**
 	 * 获取所有评论
 	 */
-	query_content_list: 'SELECT message.aTime, message.content, user.username FROM message, user WHERE videoId = ? AND message.authorId = user.id'
+	query_content_list: 'SELECT message.aTime, message.content, user.username FROM message, user WHERE videoId = ? AND message.authorId = user.id ORDER BY message.id DESC'
 }
 

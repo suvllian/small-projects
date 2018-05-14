@@ -107,7 +107,7 @@ router.get('/comment_list', function(req, res, next) {
   }).catch(error => {
     console.log(error)
     return utils.failRes(res, {
-      msg: '评论失败',
+      msg: '获取评论失败',
       data: req.query
     })
   })

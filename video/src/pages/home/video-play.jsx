@@ -13,9 +13,12 @@ class VideoPlay extends Component {
 	}
 
 	componentDidMount() {
+		this.getCommentList()
+	}
+
+	getCommentList() {
 		const $this = this
 		const { videoId } = this.props
-		console.log(this.props)
 
 		api.getCommentFetch(videoId).then(res => {
 			const { data } = res
@@ -28,23 +31,28 @@ class VideoPlay extends Component {
 
 	submitComment() {
 		const { userId, videoId } = this.props
+		const commentValue = this.refs.comment.value
+		const $this = this
 
 		if (!userId) {
 			hashHistory.push('/login')
 		}
 
-		const commentValue = this.refs.comment.value
+		if (!commentValue) {
+			console.log('请输入内容')
+			
+			return
+		}
 
 		api.commentFetch(`userId=${userId}&videoId=${videoId}&content=${commentValue}`).then(res => {
-			console.log(res)
+			$this.refs.comment.value = ''
+			$this.getCommentList()
 		})
 	}
 
 	render() {
 		const { src, title } = this.props
 		const { commentList = [] } = this.state
-
-		console.log(commentList)
 
 		return (
 			<section className="video-container">

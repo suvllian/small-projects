@@ -15,7 +15,7 @@ class VideoList extends Component {
 	}
 
 	render() {
-		const { videoList, title, play, dispatch } = this.props
+		const { videoList, title } = this.props
 
 		return (
 			<section className="video-container">
@@ -51,5 +51,5 @@ const getVideo = state => {
 }
 
 export default connect(
-	getVideo, { play, dispatch }
+	getVideo, { play }
 )(VideoList)
