@@ -46,6 +46,7 @@ export default class Register extends Component {
 						<input type="text" className="input-item" placeholder="请输入账号" ref="username" />
 						<input type="password" className="input-item" placeholder="请输入密码" ref="password" />
 						<input type="submit" className="login-btn" value="注册" onClick={this.register.bind(this)} />
+						<p className="login-bottom">已有账号？<Link to="/login">现在登录</Link></p>
 					</div>
 				</div>
 			</section>

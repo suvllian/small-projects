@@ -7,6 +7,15 @@ exports.getIndexData = () => {
 exports.loginFetch = (data) => {
 	return postFetch('login', data);
 }
+
 exports.registerFetch = (data) => {
 	return postFetch('register', data);
+}
+
+exports.commentFetch = (data) => {
+	return postFetch('comment', data);
+}
+
+exports.getCommentFetch = (id) => {
+	return getFetch(`comment_list?videoId=${id}`);
 }

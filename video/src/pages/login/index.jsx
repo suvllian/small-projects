@@ -47,6 +47,7 @@ class Login extends Component {
 						<input type="text" className="input-item" placeholder="请输入账号" ref="username" />
 						<input type="password" className="input-item" placeholder="请输入密码" ref="password" />
 						<input type="submit" className="login-btn" value="登陆" onClick={this.login.bind(this)} />
+						<p className="login-bottom">没有账号？<Link to="/register">现在注册</Link></p>
 					</div>
 				</div>
 			</section>

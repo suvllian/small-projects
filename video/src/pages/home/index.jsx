@@ -45,7 +45,7 @@ class Home extends Component {
 				<Slider />
 				<HomeNav navs={navs} changeNav={this.changeNav.bind(this)} />
 				{
-					showType === 'play' ? <VideoPlay title='视频' src="http://suvllian.top/walk.mp4" /> : (
+					showType != 'list' ? <VideoPlay title='视频' src="http://suvllian.top/walk.mp4" /> : (
 						<div>
 							<VideoList videoList={videoList} title="最新视频" />
 							<VideoList videoList={videoList} title="最热视频" />

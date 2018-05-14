@@ -13,7 +13,7 @@
 }
 
 .login-box{
-	height:320px;
+	height: 350px;
 	width:400px;
 	padding:0 32px;
 	position:relative;
@@ -50,4 +50,9 @@
 	color:#fff;
 	background-color:#0ae;
 	cursor:pointer;
+}
+
+.login-bottom {
+	padding-top: 18px;
+	text-align: right;
 }

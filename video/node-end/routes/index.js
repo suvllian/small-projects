@@ -75,4 +75,43 @@ router.post('/register', function(req, res, next) {
   })
 })
 
+// 评论
+router.post('/comment', function(req, res, next) {
+  const { userId, content, videoId } = req.body
+  const commentTime = new Date().getTime()
+
+  new Model('insert_new_content').operate([userId, commentTime, videoId, content]).then(result => {
+    const { insertId } = result
+
+    return insertId ? utils.successRes(res) : utils.failRes(res, {
+      msg: '评论失败'
+    })
+  }).catch(error => {
+    console.log(error)
+    return utils.failRes(res, {
+      msg: '评论失败',
+      data: req.body
+    })
+  })
+})
+
+
+// 获取评论
+router.get('/comment_list', function(req, res, next) {
+  const { videoId } = req.query
+
+  new Model('query_content_list').operate([videoId]).then(result => {
+    return utils.successRes(res, {
+      data: result
+    })
+  }).catch(error => {
+    console.log(error)
+    return utils.failRes(res, {
+      msg: '评论失败',
+      data: req.query
+    })
+  })
+})
+
+
 module.exports = router;

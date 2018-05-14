@@ -1,10 +1,17 @@
-import { LOGIN } from '../types'
+import { LOGIN, PLAY } from '../types'
 import { loginFetch } from './../api/index'
 
 export const login = data => {
   return {
     type: LOGIN,
     userId: data.userId
+  }
+}
+
+export const play = data => {
+  return {
+    type: PLAY,
+    videoId: data.videoId
   }
 }
 

@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux'
+import { play } from '../../actions/user'
 
-export default class VideoList extends Component {
+class VideoList extends Component {
 	constructor(props) {
 		super(props)
 	}
 
+	setVideoId(id) {
+		const { dispatch, play } = this.props
+
+		dispatch(play({videoId: id}))
+	}
+
 	render() {
-		const { videoList, title } = this.props
+		const { videoList, title, play, dispatch } = this.props
 
 		return (
 			<section className="video-container">
@@ -17,8 +25,8 @@ export default class VideoList extends Component {
 				<div className="row">
 					{
 						videoList && videoList.map((item, index) =>
-							<div className="col-md-3" key={index}>
-								<a href="/#/home/play" target="_blank">
+							<div className="col-md-3" key={item.id} onClick={this.setVideoId.bind(this, item.id)}>
+								<Link to={`/home/${item.id}`}>
 									<div className="news-block">
 										<img src={item.imgSrc} className="response-img" />
 										<div className="news-info">
@@ -26,7 +34,7 @@ export default class VideoList extends Component {
 											<p>{item.content}</p>
 										</div>
 									</div>
-								</a>
+								</Link>
 							</div>
 						)
 					}
@@ -35,3 +43,13 @@ export default class VideoList extends Component {
 		)
 	}
 }
+
+const getVideo = state => {
+	return {
+		videoId: state.user.videoId
+	}
+}
+
+export default connect(
+	getVideo, { play, dispatch }
+)(VideoList)
