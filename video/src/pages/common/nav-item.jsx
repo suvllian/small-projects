@@ -1,19 +1,23 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux'
 
-export default class NavItem extends Component {
+class NavItem extends Component {
 	render() {
+		const { userName } = this.props
+
 		return (
 			<ul className="nav-ul">
-			{
-				this.props.items.map((item, index) => {
-					let classes = (item.title == this.props.currentItem) ? 'active' : '';
-					return (<li key={index} className={classes} onClick={this.changeActiveItem.bind(this, item.title)}>
-						<Link to={item.link}>{item.title}</Link>
-					</li>)
-				})
-			}
-			</ul>						
+				<li>{userName}</li>
+				{
+					this.props.items.map((item, index) => {
+						let classes = (item.title == this.props.currentItem) ? 'active nav-li' : 'nav-li';
+						return (<li key={index} className={classes} onClick={this.changeActiveItem.bind(this, item.title)}>
+							<Link to={item.link}>{item.title}</Link>
+						</li>)
+					})
+				}
+			</ul>
 		)
 	}
 
@@ -21,3 +25,14 @@ export default class NavItem extends Component {
 		this.props.changeActive(item);
 	}
 }
+
+const getUserName = state => {
+	return {
+		userName: state.user.userName
+	}
+}
+
+export default connect(
+	getUserName
+)(NavItem)
+

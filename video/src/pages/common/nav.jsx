@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, IndexLink } from 'react-router';
-
 import NavItem from './nav-item.jsx';
+
 require('./nav.scss');
 
 export default class Nav extends Component {
@@ -11,6 +11,7 @@ export default class Nav extends Component {
 		this.state = {
 			items: [
 				{ title: "首页", link: "/", isActive: true },
+				{ title: "投稿", link: "/login", isActive: true },
 				{ title: "个人中心", link: "/login", isActive: true },
 				// { title: "关于讯澜" , link: "/about", isActive: false},
 				// { title: "加入讯澜" , link: "/about", isActive: false}

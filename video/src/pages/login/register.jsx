@@ -34,7 +34,7 @@ export default class Register extends Component {
 			return 
 		}
 
-		fetchPostsIfNeeded(api.registerFetch, `username=${username}&password=${password}`)
+		api.registerFetch(`username=${username}&password=${password}`)
 	}
 
 	render() {

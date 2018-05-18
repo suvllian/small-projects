@@ -78,30 +78,30 @@ $minWidth: 1270px;
     position: relative;
 
     li{
-		float: left;
-		height: 0;
-		display: table;
-		position: relative;
-		transition: 0.5s background-color height ease;
-
-		a{
-			display: block;
-			position: relative;   
-			padding: 0 22px;
-			font-size: 15px;
-		    font-weight: 400;
-			color: #555;
-		}
-
-		&:hover{
-			background-color: $logoColor;
-			height: $height;
+			float: left;
+			height: 0;
+			display: table;
+			position: relative;
+			transition: 0.5s background-color height ease;
 
 			a{
-				color: #fff;
+				display: block;
+				position: relative;   
+				padding: 0 22px;
+				font-size: 15px;
+				font-weight: 400;
+				color: #555;
 			}
-		}	
-	}
+
+			.nav-li:hover{
+				background-color: $logoColor;
+				height: $height;
+
+				a{
+					color: #fff;
+				}
+			}	
+		}
 
 	.active {
 		background-color: $logoColor;

@@ -10,7 +10,6 @@ router.get('/', function(req, res, next) {
   res.json({ author: 'suvllian'})
 })
 
-
 // 获取首页信息
 router.get('/get_index_info', function(req, res, next) {
   const { pageType } = req.query
@@ -42,6 +41,7 @@ router.post('/login', function(req, res, next) {
     if (result && result[0] && result[0].password == password) {
       return utils.successRes(res, {
         userId: result[0].id,
+        username: result[0].username,
         csrf_token: encodeURI(username)
       })
     }

@@ -2,7 +2,7 @@ module.exports = {
 	/*
 	 * 获取videoList
 	 */
-	query_videos: 'SELECT * FROM videolist ORDER BY id DESC LIMIT 0, 7',
+	query_videos: 'SELECT * FROM videolist ORDER BY id DESC LIMIT 0, 8',
 	/**
 	 * 查询用户密码
 	 */

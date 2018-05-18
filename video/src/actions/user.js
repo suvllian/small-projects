@@ -4,7 +4,8 @@ import { loginFetch } from './../api/index'
 export const login = data => {
   return {
     type: LOGIN,
-    userId: data.userId
+    userId: data.userId,
+    userName: data.username
   }
 }
 

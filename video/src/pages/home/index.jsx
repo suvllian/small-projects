@@ -45,12 +45,32 @@ class Home extends Component {
 				<Slider />
 				<HomeNav navs={navs} changeNav={this.changeNav.bind(this)} />
 				{
-					showType != 'list' ? <VideoPlay title='视频' src="http://suvllian.top/walk.mp4" /> : (
+					showType == 'list' || !showType ? (
 						<div>
 							<VideoList videoList={videoList} title="最新视频" />
 							<VideoList videoList={videoList} title="最热视频" />
 						</div>
-					)
+					) : (
+							<div className="video-play-container">
+								<VideoPlay title='视频' src="http://suvllian.top/walk.mp4" />
+								<div className="video-play-list">
+									<h3>视频列表</h3>
+									{
+										videoList && videoList.map((video, index) => (
+											<div className="recommend-item" key={index}>
+												<div className="recommend-img">
+													<img src={video.imgSrc} className="response-img" />
+												</div>
+												<div className="recommend-info">
+													<p>{video.aTime}</p>
+													<p>{video.content}</p>
+												</div>
+											</div>
+										))
+									}
+								</div>
+							</div>
+						)
 				}
 				<Hot />
 			</div>
