@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch'
 
-const URL = location.href.includes('localhost') ?  "http://localhost:9000" : "http://suvllian.top:9000"
+const URL = !location.href.includes('localhost') ?  "http://localhost:9000" : "http://suvllian.top:9000"
 
 const getInit = {
 	method: "GET",
