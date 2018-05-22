@@ -20,7 +20,7 @@ class Login extends Component {
 
 	componentDidMount() {
 		const { userId } = this.props
-		
+
 		if (userId) {
 			hashHistory.push('/')
 		}

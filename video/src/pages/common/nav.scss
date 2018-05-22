@@ -3,6 +3,17 @@ $smallHeight: 48px;
 $logoColor: #00adb5;
 $minWidth: 1270px;
 
+.search-container {
+	margin-left: 100px;
+	color: #000;
+}
+
+.search-input {
+	border: 2px solid #eee;
+	border-radius: 3px;
+	padding: 4px;
+}
+
 .header{
 	height: $height;
 	width: 100%;
@@ -18,6 +29,8 @@ $minWidth: 1270px;
 }
 
 .header-container{
+	display: flex;
+	justify-content: space-between;
 	width: $minWidth;
 	padding: 0px 15px;
 	margin: 0 auto;

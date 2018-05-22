@@ -28,6 +28,9 @@ export default class Nav extends Component {
 			<header className="header small-header">
 				<div className="header-container">
 					<h1 className="header-logo"><IndexLink to="/">C站</IndexLink></h1>
+					<div className="search-container">
+						站内搜索：<input type="text"  className="search-input" />
+					</div>
 					<nav className="header-nav">
 						<NavItem changeActive={this.changeActive} items={this.state.items} currentItem={this.state.currentItem} />
 					</nav>

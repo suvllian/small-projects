@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { hashHistory } from 'react-router'
 import api from './../../api/index'
+import formatTime from '../../utils/index.js'
 
 class VideoPlay extends Component {
 	constructor(props) {
@@ -76,7 +77,7 @@ class VideoPlay extends Component {
 							commentList.map((comment, index) => (<div className="comment-item" key={index}>
 								<div className="comment-info">
 									<div className="comment-username">{comment.username}</div>
-									<div className="comment-time">2018/5/13 20:16</div>
+									<div className="comment-time">{formatTime(comment.aTime)}</div>
 								</div>
 								<div>{comment.content}</div>
 							</div>
