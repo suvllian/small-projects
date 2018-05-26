@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { hashHistory } from 'react-router'
 import api from './../../api'
 import { fetchPostsIfNeeded } from '../../actions/user'
+import { login } from './../../actions/user.js'
 
 class Login extends Component {
 	constructor(props) {
@@ -35,7 +36,7 @@ class Login extends Component {
 			return
 		}
 
-		fetchPostsIfNeeded(api.loginFetch, `username=${username}&password=${password}`)
+		fetchPostsIfNeeded(api.loginFetch, login, `username=${username}&password=${password}`)
 	}
 
 	render() {
@@ -55,13 +56,13 @@ class Login extends Component {
 	}
 }
 
-const getUser = state => {
+const mapStateToProps = state => {
 	return {
 		userId: state.user.userId
 	}
 }
 
 export default connect(
-	getUser,
+	mapStateToProps,
 	{ fetchPostsIfNeeded }
 )(Login)

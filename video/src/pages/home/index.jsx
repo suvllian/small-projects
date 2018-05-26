@@ -6,7 +6,10 @@ import VideoList from './video-list.jsx';
 import VideoPlay from './video-play.jsx';
 import Connect from './connect.jsx';
 import Hot from './hot.jsx'
+import { connect } from 'react-redux'
 import api from './../../api'
+import { fetchPostsIfNeeded } from '../../actions/user'
+import { getVideoList } from './../../actions/user.js'
 
 class Home extends Component {
 	constructor(props) {
@@ -25,9 +28,9 @@ class Home extends Component {
 	}
 
 	getIndexData() {
-		api.getIndexData().then((data) => {
-			this.setState({ videoList: data.data });
-		})
+		const { fetchPostsIfNeeded } = this.props
+
+		fetchPostsIfNeeded(api.getIndexData, getVideoList)
 	}
 
 	changeNav() {
@@ -37,7 +40,8 @@ class Home extends Component {
 	}
 
 	render() {
-		const { videoList, navs } = this.state;
+		const { navs } = this.state;
+		const { videoList } = this.props
 		const showType = this.props.params.type
 
 		return (
@@ -78,4 +82,14 @@ class Home extends Component {
 	}
 }
 
-export default Home
+const mapStateToProps = state => {
+	return {
+		videoList: state.user.videoList
+	}
+}
+
+export default connect(
+	mapStateToProps, {
+		fetchPostsIfNeeded
+	}
+)(Home)

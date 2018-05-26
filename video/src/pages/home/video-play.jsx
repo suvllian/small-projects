@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { hashHistory } from 'react-router'
 import api from './../../api/index'
-import formatTime from '../../utils/index.js'
+import { formatTime } from '../../utils/index.js'
 
 class VideoPlay extends Component {
 	constructor(props) {
 		super(props)
 
 		this.state = {
-			commentList: []
+			commentList: [],
+			isLoved: false,
+			isCollected: false
 		}
 	}
 
@@ -20,6 +22,10 @@ class VideoPlay extends Component {
 	getCommentList() {
 		const $this = this
 		const { videoId } = this.props
+
+		if (!videoId) {
+			return 
+		}
 
 		api.getCommentFetch(videoId).then(res => {
 			const { data } = res
@@ -51,9 +57,39 @@ class VideoPlay extends Component {
 		})
 	}
 
+	clickLoveBtn() {
+		const { userId, videoId } = this.props
+
+		if (!userId) {
+			hashHistory.push('/login')
+		}
+
+		api.loveFetch(`userId=${userId}&videoId=${videoId}`)
+		// 加载页面判断用户是否添加喜欢
+		this.setState({
+			isLoved: !this.state.isLoved
+		})
+	}
+
+	clickCollectBtn() {
+		const { userId, videoId } = this.props
+
+		if (!userId) {
+			hashHistory.push('/login')
+		}
+
+		api.collectFetch(`userId=${userId}&videoId=${videoId}`)
+
+		this.setState({
+			isCollected: !this.state.isCollected
+		})
+	}
+
 	render() {
 		const { src, title } = this.props
-		const { commentList = [] } = this.state
+		const { commentList = [], isLoved, isCollected } = this.state
+		const loveImgSrc = isLoved ? 'love-after.png' : 'love-before.png'
+		const collectImgSrc = isCollected ? 'collect-after.png' : 'collect-before.png'
 
 		return (
 			<section className="video-container">
@@ -63,6 +99,17 @@ class VideoPlay extends Component {
 				<div className="row">
 					<video className="video-player" src={src}
 						controls="controls" autoPlay="autoplay" />
+				</div>
+
+				<div className="operate-list">
+					<div className="operate-btn" onClick={this.clickCollectBtn.bind(this)}>
+						<img src={require("./../../assets/" + collectImgSrc)} className="operate-img" />
+						收藏(20)
+					</div>
+					<div className="operate-btn" onClick={this.clickLoveBtn.bind(this)}>
+						<img src={require("./../../assets/" + loveImgSrc)} className="operate-img" />
+						喜欢(12)
+					</div>
 				</div>
 
 				<div className="comment-container">

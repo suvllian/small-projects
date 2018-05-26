@@ -16,6 +16,14 @@ exports.commentFetch = (data) => {
 	return postFetch('comment', data);
 }
 
+exports.loveFetch = (data) => {
+	return postFetch('love', data);
+}
+
+exports.collectFetch = (data) => {
+	return postFetch('collect', data);
+}
+
 exports.getCommentFetch = (id) => {
 	return getFetch(`comment_list?videoId=${id}`);
 }

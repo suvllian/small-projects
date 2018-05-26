@@ -1,5 +1,6 @@
-import { LOGIN, PLAY } from '../types'
+import { LOGIN, PLAY, GETLIST } from '../types'
 import { loginFetch } from './../api/index'
+
 
 export const login = data => {
   return {
@@ -16,14 +17,21 @@ export const play = data => {
   }
 }
 
-function fetchPosts(fetchApi, data) {
+export const getVideoList = data => {
+  return {
+    type: GETLIST,
+    videoList: data.data
+  }
+}
+
+function fetchPosts(fetchApi, actionApi, data) {
   return dispatch => {
     return fetchApi(data).then((data) => {
-      dispatch(login(data))
+      dispatch(actionApi(data))
     }).catch((e) => { console.log(e.msg) })
   }
 }
 
-export function fetchPostsIfNeeded(fetchApi, data) {
-  return (dispatch, getState) => dispatch(fetchPosts(fetchApi, data))
+export function fetchPostsIfNeeded(fetchApi, actionApi, data) {
+  return (dispatch, getState) => dispatch(fetchPosts(fetchApi, actionApi, data))
 }

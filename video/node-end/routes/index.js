@@ -113,5 +113,78 @@ router.get('/comment_list', function(req, res, next) {
   })
 })
 
+router.post('/search', function(req, res, next) {
+  const { content } = req.body
+
+  new Model('query_video_byinput').operate([content]).then(result => {
+    return utils.successRes(res, {
+      data: []
+    })
+  }).catch(error => {
+    return utils.failRes(res, {
+      msg: '搜索失败',
+      data: req.body
+    })
+  }) 
+})
+
+router.post('/love', function(req, res, next) {
+  const { userId, videoId } = req.body
+
+  if (!userId || !videoId) {
+    return utils.failRes(res)
+  }
+
+  new Model('query_user_love_video').operate([userId, videoId]).then(result => {
+    let sqlSentence = (!result || !result.length) ? 'insert_user_love' : 'delete_user_love'
+
+    new Model(sqlSentence).operate([userId, videoId]).then(result => {
+  
+      return utils.successRes(res)
+    }).catch(error => {
+      console.log(error)
+      return utils.failRes(res, {
+        msg: '操作失败',
+        data: req.body
+      })
+    })
+  }).catch(error => {
+    console.log(error)
+    return utils.failRes(res, {
+      msg: '操作失败',
+      data: req.body
+    })
+  })
+})
+
+router.post('/collect', function(req, res, next) {
+  const { userId, videoId } = req.body
+
+  if (!userId || !videoId) {
+    return utils.failRes(res)
+  }
+
+  new Model('query_user_collect_video').operate([userId, videoId]).then(result => {
+    let sqlSentence = (!result || !result.length) ? 'insert_user_collect' : 'delete_user_collect'
+
+    new Model(sqlSentence).operate([userId, videoId]).then(result => {
+  
+      return utils.successRes(res)
+    }).catch(error => {
+      console.log(error)
+      return utils.failRes(res, {
+        msg: '操作失败',
+        data: req.body
+      })
+    })
+  }).catch(error => {
+    console.log(error)
+    return utils.failRes(res, {
+      msg: '操作失败',
+      data: req.body
+    })
+  })
+})
+
 
 module.exports = router;

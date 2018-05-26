@@ -9,9 +9,7 @@ class VideoList extends Component {
 	}
 
 	setVideoId(id) {
-		const { dispatch, play } = this.props
-
-		dispatch(play({videoId: id}))
+		this.props.setVideoId(id)
 	}
 
 	render() {
@@ -44,12 +42,18 @@ class VideoList extends Component {
 	}
 }
 
-const getVideo = state => {
+const mapStateToProps = state => {
 	return {
 		videoId: state.user.videoId
 	}
 }
 
+const mapDispatchToProps = dispatch => {
+	return {
+		setVideoId: id => dispatch(play({videoId: id}))
+	}
+}
+
 export default connect(
-	getVideo, { play }
+	mapStateToProps, mapDispatchToProps
 )(VideoList)

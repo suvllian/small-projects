@@ -3,7 +3,6 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux'
 import { hashHistory } from 'react-router'
 import api from './../../api'
-import { fetchPostsIfNeeded } from '../../actions/user'
 
 export default class Register extends Component {
 	constructor(props) {

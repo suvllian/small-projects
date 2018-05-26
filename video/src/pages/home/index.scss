@@ -357,3 +357,25 @@
   width: 160px;
   margin-right: 12px;
 }
+
+.operate-list {
+  display: flex;
+  padding: 20px;
+  margin-top: 20px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.operate-btn {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.operate-img {
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+  cursor: pointer;
+}

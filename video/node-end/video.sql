@@ -31,3 +31,17 @@ CREATE TABLE IF NOT EXISTS `message` (
   `content` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS lovevideo (
+	id int(11) NOT NULL AUTO_INCREMENT,
+	authorId int(11) NOT NULL,
+	videoId int(11) NOT NULL,
+	PRIMARY KEY (id)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS collectvideo (
+	id int(11) NOT NULL AUTO_INCREMENT,
+	authorId int(11) NOT NULL,
+	videoId int(11) NOT NULL,
+	PRIMARY KEY (id)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;

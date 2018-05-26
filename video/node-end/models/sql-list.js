@@ -18,6 +18,34 @@ module.exports = {
 	/**
 	 * 获取所有评论
 	 */
-	query_content_list: 'SELECT message.aTime, message.content, user.username FROM message, user WHERE videoId = ? AND message.authorId = user.id ORDER BY message.id DESC'
+	query_content_list: 'SELECT message.aTime, message.content, user.username FROM message, user WHERE videoId = ? AND message.authorId = user.id ORDER BY message.id DESC',
+	/**
+	 * 搜索视频
+	 */
+	query_video_byinput: "SELECT * FROM videolist WHERE title = '%' + ?  + '%' OR content = '%' + ?  + '%'",
+	/**
+	 * 查询该用户是否喜欢该视频
+	 */
+	query_user_love_video: 'SELECT * FROM lovevideo WHERE authorId = ? AND videoId = ?',
+	/**
+	 * 新增视频喜欢数量
+	 */
+	insert_user_love: 'INSERT INTO lovevideo (authorId, videoId) VALUES(?, ?)',
+	/**
+	 * 更新视频喜欢数量
+	 */
+	delete_user_love: 'DELETE FROM lovevideo WHERE authorId = ? AND videoId = ?',
+	/**
+	 * 查询该用户是否收藏该视频
+	 */
+	query_collect_love_video: 'SELECT * FROM collectvideo WHERE authorId = ? AND videoId = ?',
+	/**
+	 * 新增视频收藏数量
+	 */
+	insert_collectr_love: 'INSERT INTO collectvideo (authorId, videoId) VALUES(?, ?)',
+	/**
+	 * 更新视频收藏数量
+	 */
+	delete_collect_love: 'DELETE FROM collectvideo WHERE authorId = ? AND videoId = ?'
 }
 
