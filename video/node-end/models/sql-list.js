@@ -38,14 +38,22 @@ module.exports = {
 	/**
 	 * 查询该用户是否收藏该视频
 	 */
-	query_collect_love_video: 'SELECT * FROM collectvideo WHERE authorId = ? AND videoId = ?',
+	query_user_collect_video: 'SELECT * FROM collectvideo WHERE authorId = ? AND videoId = ?',
 	/**
 	 * 新增视频收藏数量
 	 */
-	insert_collectr_love: 'INSERT INTO collectvideo (authorId, videoId) VALUES(?, ?)',
+	insert_user_collect: 'INSERT INTO collectvideo (authorId, videoId) VALUES(?, ?)',
 	/**
 	 * 更新视频收藏数量
 	 */
-	delete_collect_love: 'DELETE FROM collectvideo WHERE authorId = ? AND videoId = ?'
+	delete_user_collect: 'DELETE FROM collectvideo WHERE authorId = ? AND videoId = ?',
+	/**
+	 * 查询某个视频收藏数量
+	 */
+	query_video_collect_count: 'SELECT COUNT(*) FROM collectvideo WHERE videoId = ?',
+	/**
+	 * 查询某个视频被喜欢的数量
+	 */
+	query_video_love_count: 'SELECT COUNT(*) FROM lovevideo WHERE videoId = ?'
 }
 

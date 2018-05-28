@@ -47,7 +47,7 @@ class Home extends Component {
 		return (
 			<div>
 				<Slider />
-				<HomeNav navs={navs} changeNav={this.changeNav.bind(this)} />
+				<HomeNav navs={navs} changeNav={this.changeNav.bind(this)} toRouter="/home/list" />
 				{
 					showType == 'list' || !showType ? (
 						<div>

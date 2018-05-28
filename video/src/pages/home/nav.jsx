@@ -14,17 +14,21 @@ export default class HomeNav extends Component {
     this.setState({
       activeId: index
     })
-    this.props.changeNav()
+
+    if (this.props.changeNav) {
+      this.props.changeNav()
+    }
   }
 
   render() {
     const { activeId } = this.state
+    const { toRouter } = this.props
 
     return (
       <section className="home-nav">
         {
           this.props.navs.map((nav, index) =>
-            <Link to="/home/list" key={index}>
+            <Link to={toRouter} key={index}>
               <div className={activeId === index ? 'home-nav-item home-nav-active' : 'home-nav-item'}
                 onClick={this.changeNav.bind(this, index)}>
                 {nav}

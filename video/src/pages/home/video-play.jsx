@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { hashHistory } from 'react-router'
+import { hashHistory, Link } from 'react-router'
 import api from './../../api/index'
 import { formatTime } from '../../utils/index.js'
 
@@ -11,12 +11,33 @@ class VideoPlay extends Component {
 		this.state = {
 			commentList: [],
 			isLoved: false,
-			isCollected: false
+			loveCount: 0,
+			isCollected: false,
+			collectCount: 0
 		}
 	}
 
 	componentDidMount() {
 		this.getCommentList()
+		this.getLoveCollectCount()
+	}
+
+	getLoveCollectCount() {
+		const { userId, videoId } = this.props
+		const $this = this
+
+		if (!videoId) {
+			return
+		}
+
+		api.getCollectLoveCount(`userId=${userId}&videoId=${videoId}`).then(res => {
+			$this.setState({
+				loveCount: res.isLove,
+				loveCount: res.loveCount[0]['COUNT(*)'],
+				collectCount: res.isCollect,
+				collectCount: res.collectCount[0]['COUNT(*)']
+			})
+		})
 	}
 
 	getCommentList() {
@@ -24,7 +45,7 @@ class VideoPlay extends Component {
 		const { videoId } = this.props
 
 		if (!videoId) {
-			return 
+			return
 		}
 
 		api.getCommentFetch(videoId).then(res => {
@@ -47,7 +68,7 @@ class VideoPlay extends Component {
 
 		if (!commentValue) {
 			console.log('请输入内容')
-			
+
 			return
 		}
 
@@ -59,6 +80,7 @@ class VideoPlay extends Component {
 
 	clickLoveBtn() {
 		const { userId, videoId } = this.props
+		const count = this.state.isLoved ? -1 : 1
 
 		if (!userId) {
 			hashHistory.push('/login')
@@ -67,12 +89,14 @@ class VideoPlay extends Component {
 		api.loveFetch(`userId=${userId}&videoId=${videoId}`)
 		// 加载页面判断用户是否添加喜欢
 		this.setState({
-			isLoved: !this.state.isLoved
+			isLoved: !this.state.isLoved,
+			loveCount: this.state.loveCount + count
 		})
 	}
 
 	clickCollectBtn() {
 		const { userId, videoId } = this.props
+		const count = this.state.isCollected ? -1 : 1
 
 		if (!userId) {
 			hashHistory.push('/login')
@@ -81,13 +105,14 @@ class VideoPlay extends Component {
 		api.collectFetch(`userId=${userId}&videoId=${videoId}`)
 
 		this.setState({
-			isCollected: !this.state.isCollected
+			isCollected: !this.state.isCollected,
+			collectCount: this.state.collectCount + count
 		})
 	}
 
 	render() {
 		const { src, title } = this.props
-		const { commentList = [], isLoved, isCollected } = this.state
+		const { commentList = [], isLoved, loveCount, isCollected, collectCount } = this.state
 		const loveImgSrc = isLoved ? 'love-after.png' : 'love-before.png'
 		const collectImgSrc = isCollected ? 'collect-after.png' : 'collect-before.png'
 
@@ -104,11 +129,11 @@ class VideoPlay extends Component {
 				<div className="operate-list">
 					<div className="operate-btn" onClick={this.clickCollectBtn.bind(this)}>
 						<img src={require("./../../assets/" + collectImgSrc)} className="operate-img" />
-						收藏(20)
+						收藏({collectCount})
 					</div>
 					<div className="operate-btn" onClick={this.clickLoveBtn.bind(this)}>
 						<img src={require("./../../assets/" + loveImgSrc)} className="operate-img" />
-						喜欢(12)
+						喜欢({loveCount})
 					</div>
 				</div>
 
@@ -122,11 +147,13 @@ class VideoPlay extends Component {
 					<div className="comment-list">
 						{
 							commentList.map((comment, index) => (<div className="comment-item" key={index}>
-								<div className="comment-info">
-									<div className="comment-username">{comment.username}</div>
-									<div className="comment-time">{formatTime(comment.aTime)}</div>
-								</div>
-								<div>{comment.content}</div>
+								<Link to={`/home/${comment.id}`}>
+									<div className="comment-info">
+										<div className="comment-username">{comment.username}</div>
+										<div className="comment-time">{formatTime(comment.aTime)}</div>
+									</div>
+									<div>{comment.content}</div>
+								</Link>
 							</div>
 							))
 						}

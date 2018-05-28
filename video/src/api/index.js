@@ -24,6 +24,11 @@ exports.collectFetch = (data) => {
 	return postFetch('collect', data);
 }
 
+// 获取收藏数量和评论数量
+exports.getCollectLoveCount = data => {
+	return getFetch(`collectLoveCount?${data}`)
+}
+
 exports.getCommentFetch = (id) => {
 	return getFetch(`comment_list?videoId=${id}`);
 }

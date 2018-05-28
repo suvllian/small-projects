@@ -23,7 +23,7 @@ class VideoList extends Component {
 				<div className="row">
 					{
 						videoList && videoList.map((item, index) =>
-							<div className="col-md-3" key={item.id} onClick={this.setVideoId.bind(this, item.id)}>
+							<div className="col-md-3" key={index} onClick={this.setVideoId.bind(this, item.id)}>
 								<Link to={`/home/${item.id}`}>
 									<div className="news-block">
 										<img src={item.imgSrc} className="response-img" />

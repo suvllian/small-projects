@@ -11,10 +11,8 @@ export default class Nav extends Component {
 		this.state = {
 			items: [
 				{ title: "首页", link: "/", isActive: true },
-				{ title: "投稿", link: "/login", isActive: true },
-				{ title: "个人中心", link: "/login", isActive: true },
-				// { title: "关于讯澜" , link: "/about", isActive: false},
-				// { title: "加入讯澜" , link: "/about", isActive: false}
+				{ title: "投稿", link: "/upload", isActive: true },
+				{ title: "个人中心", link: "/person/love", isActive: true }
 			],
 			currentItem: "首页",
 			small: false
@@ -29,7 +27,7 @@ export default class Nav extends Component {
 				<div className="header-container">
 					<h1 className="header-logo"><IndexLink to="/">C站</IndexLink></h1>
 					<div className="search-container">
-						站内搜索：<input type="text"  className="search-input" />
+						站内搜索：<input type="text" className="search-input" />
 					</div>
 					<nav className="header-nav">
 						<NavItem changeActive={this.changeActive} items={this.state.items} currentItem={this.state.currentItem} />
