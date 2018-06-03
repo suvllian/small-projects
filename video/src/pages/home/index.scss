@@ -294,7 +294,7 @@
 
 .comment-submit {
   text-align: right;
-  button {
+  button, .button {
     padding: 8px 20px;
     border: none;
     border-radius: 3px;
@@ -343,7 +343,7 @@
     position: absolute;
     width: 300px;
     top: 0;
-    right: 100px;
+    right: 0;
   }
 }
 
@@ -357,6 +357,10 @@
 .recommend-img {
   width: 160px;
   margin-right: 12px;
+}
+
+.recommend-info {
+  color: #000;
 }
 
 .operate-list {

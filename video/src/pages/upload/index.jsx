@@ -11,23 +11,38 @@ class Upload extends Component {
 	}
 
 	componentDidMount() {
-    const { userId } = this.props
+		const { userId } = this.props
 
-    if (!userId) {
+		if (!userId) {
 			hashHistory.push('/login')
 		}
-  }
+	}
+
+	submitFile(e) {
+		e.preventDefault()
+		const file = this.refs.videoFile.files[0]
+		const reader = new FileReader()
+		
+		reader.readAsDataURL(file)
+		reader.onload = function (e) {
+			const data = e.target.result
+
+			api.uploadFetch(`file=${data}`)
+		}
+	}
 
 	render() {
 		const { videoList } = this.props
-
 		const list = [...videoList, ...videoList]
 
 		return (
 			<section className="upload">
-				<div className="comment-submit">
-					<button>上传视频</button>
-				</div>
+				<form method="post" enctype="multipart/form-data" onSubmit={this.submitFile.bind(this)}>
+					<input type="file" name="videoFile" className="choose-file-btn" ref="videoFile" />
+					<div className="comment-submit">
+						<button>上传视频</button>
+					</div>
+				</form>
 				<VideoList videoList={list} title="已上传视频列表" />
 			</section>
 		)

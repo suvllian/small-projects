@@ -2,7 +2,11 @@ module.exports = {
 	/*
 	 * 获取videoList
 	 */
-	query_videos: 'SELECT * FROM videolist ORDER BY id DESC LIMIT 0, 8',
+	query_videos: 'SELECT * FROM videolist WHERE videoType = ? ORDER BY id DESC LIMIT 0, 8',
+	/**
+	 * 获取视频信息
+	 */
+	query_video_info: 'SELECT * FROM videolist WHERE id = ?',
 	/**
 	 * 查询用户密码
 	 */
@@ -22,7 +26,7 @@ module.exports = {
 	/**
 	 * 搜索视频
 	 */
-	query_video_byinput: "SELECT * FROM videolist WHERE title = '%' + ?  + '%' OR content = '%' + ?  + '%'",
+	query_video_byinput: "SELECT * FROM videolist WHERE title LIKE '%' + ?  + '%' OR content LIKE '%' + ?  + '%'",
 	/**
 	 * 查询该用户是否喜欢该视频
 	 */
@@ -54,6 +58,6 @@ module.exports = {
 	/**
 	 * 查询某个视频被喜欢的数量
 	 */
-	query_video_love_count: 'SELECT COUNT(*) FROM lovevideo WHERE videoId = ?'
+	query_video_love_count: 'SELECT COUNT(*) FROM lovevideo WHERE videoId = ?',
 }
 

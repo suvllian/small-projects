@@ -4,7 +4,6 @@ import Slider from './slider.jsx';
 import HomeNav from './nav.jsx';
 import VideoList from './video-list.jsx';
 import VideoPlay from './video-play.jsx';
-import Connect from './connect.jsx';
 import Hot from './hot.jsx'
 import { connect } from 'react-redux'
 import api from './../../api'
@@ -17,9 +16,12 @@ class Home extends Component {
 
 		this.state = {
 			videoList: [],
+			videoClass: 0,
 			navs: ['首页', '电视剧', '电影', '综艺', '纪录片', '音乐', '动画'],
 			playStatus: false //list
 		}
+
+		this.changeNav = this.changeNav.bind(this)
 	}
 
 	componentDidMount() {
@@ -29,13 +31,17 @@ class Home extends Component {
 
 	getIndexData() {
 		const { fetchPostsIfNeeded } = this.props
+		const { videoClass } = this.state
 
-		fetchPostsIfNeeded(api.getIndexData, getVideoList)
+		fetchPostsIfNeeded(api.getIndexData, getVideoList, `videoClass=${videoClass}`)
 	}
 
-	changeNav() {
+	changeNav(index) {
 		this.setState({
+			videoClass: index,
 			playStatus: false
+		}, () => {
+			this.getIndexData()
 		})
 	}
 
@@ -43,11 +49,14 @@ class Home extends Component {
 		const { navs } = this.state;
 		const { videoList } = this.props
 		const showType = this.props.params.type
+		const recommendVideo = [...videoList]
+
+		recommendVideo.length = 4
 
 		return (
 			<div>
 				<Slider />
-				<HomeNav navs={navs} changeNav={this.changeNav.bind(this)} toRouter="/home/list" />
+				<HomeNav navs={navs} changeNav={this.changeNav} toRouter="/home/list" />
 				{
 					showType == 'list' || !showType ? (
 						<div>
@@ -60,15 +69,17 @@ class Home extends Component {
 								<div className="video-play-list">
 									<h3>视频列表</h3>
 									{
-										videoList && videoList.map((video, index) => (
+										recommendVideo && recommendVideo.map((video, index) => (
 											<div className="recommend-item" key={index}>
-												<div className="recommend-img">
-													<img src={video.imgSrc} className="response-img" />
-												</div>
-												<div className="recommend-info">
-													<p>{video.aTime}</p>
-													<p>{video.content}</p>
-												</div>
+												<Link to={`/home/${video.id}`}>
+													<div className="recommend-img">
+														<img src={require("./../../assets/" + video.imgSrc)} className="response-img" />
+													</div>
+													<div className="recommend-info">
+														<p>{video.title} - {video.aTime}</p>
+														<p>{video.content}</p>
+													</div>
+												</Link>
 											</div>
 										))
 									}

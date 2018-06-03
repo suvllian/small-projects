@@ -1,7 +1,11 @@
 import { postFetch, getFetch } from './resource.js';
 
-exports.getIndexData = () => {
-	return getFetch('get_index_info');
+exports.getIndexData = (data) => {
+	return getFetch(`get_index_info?${data}`);
+}
+
+exports.getVideoResource = (data) => {
+	return getFetch(`get_video_info?${data}`);
 }
 
 exports.loginFetch = (data) => {
@@ -24,9 +28,19 @@ exports.collectFetch = (data) => {
 	return postFetch('collect', data);
 }
 
+// upload file
+exports.uploadFetch = (data) => {
+	return postFetch('uploadFile', data);
+}
+
 // 获取收藏数量和评论数量
 exports.getCollectLoveCount = data => {
 	return getFetch(`collectLoveCount?${data}`)
+}
+
+// search value
+exports.searchFetch = data => {
+	return getFetch(`search?${data}`)
 }
 
 exports.getCommentFetch = (id) => {

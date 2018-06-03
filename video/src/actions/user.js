@@ -1,4 +1,4 @@
-import { LOGIN, PLAY, GETLIST } from '../types'
+import { LOGIN, PLAY, GETLIST, SEARCH } from '../types'
 import { loginFetch } from './../api/index'
 
 
@@ -21,6 +21,13 @@ export const getVideoList = data => {
   return {
     type: GETLIST,
     videoList: data.data
+  }
+}
+
+export const searchVideo = data => {
+  return {
+    type: SEARCH,
+    searchVideos: data.data
   }
 }
 

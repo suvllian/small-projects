@@ -13,13 +13,26 @@ class VideoPlay extends Component {
 			isLoved: false,
 			loveCount: 0,
 			isCollected: false,
-			collectCount: 0
+			collectCount: 0,
+			videoInfo: {}
 		}
 	}
 
 	componentDidMount() {
+		this.getResource()
 		this.getCommentList()
 		this.getLoveCollectCount()
+	}
+
+	getResource() {
+		const { videoId } = this.props
+		const that = this
+
+		api.getVideoResource(`videoId=${videoId}`).then(res => {
+			that.setState({
+				videoInfo: res.data[0]
+			})
+		})
 	}
 
 	getLoveCollectCount() {
@@ -111,8 +124,9 @@ class VideoPlay extends Component {
 	}
 
 	render() {
-		const { src, title } = this.props
-		const { commentList = [], isLoved, loveCount, isCollected, collectCount } = this.state
+		const { commentList = [], isLoved, loveCount, isCollected, collectCount, videoInfo = {} } = this.state
+		const { title, videoSrc } = videoInfo
+		console.log(videoInfo, videoSrc)
 		const loveImgSrc = isLoved ? 'love-after.png' : 'love-before.png'
 		const collectImgSrc = isCollected ? 'collect-after.png' : 'collect-before.png'
 
@@ -122,8 +136,8 @@ class VideoPlay extends Component {
 					<h2>{title}</h2>
 				</div>
 				<div className="row">
-					<video className="video-player" src={src}
-						controls="controls" autoPlay="autoplay" />
+					{videoSrc && <video className="video-player" src={videoSrc}
+						controls="controls" autoPlay="autoplay" />}
 				</div>
 
 				<div className="operate-list">
@@ -147,13 +161,11 @@ class VideoPlay extends Component {
 					<div className="comment-list">
 						{
 							commentList.map((comment, index) => (<div className="comment-item" key={index}>
-								<Link to={`/home/${comment.id}`}>
-									<div className="comment-info">
-										<div className="comment-username">{comment.username}</div>
-										<div className="comment-time">{formatTime(comment.aTime)}</div>
-									</div>
-									<div>{comment.content}</div>
-								</Link>
+								<div className="comment-info">
+									<div className="comment-username">{comment.username}</div>
+									<div className="comment-time">{formatTime(comment.aTime)}</div>
+								</div>
+								<div>{comment.content}</div>
 							</div>
 							))
 						}

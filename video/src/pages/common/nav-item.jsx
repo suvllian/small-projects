@@ -8,7 +8,7 @@ class NavItem extends Component {
 
 		return (
 			<ul className="nav-ul">
-				<li>{userName}</li>
+				<li className="user-name">{userName}</li>
 				{
 					this.props.items.map((item, index) => {
 						let classes = (item.title == this.props.currentItem) ? 'active nav-li' : 'nav-li';

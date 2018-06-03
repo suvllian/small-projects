@@ -16,7 +16,7 @@ export default class HomeNav extends Component {
     })
 
     if (this.props.changeNav) {
-      this.props.changeNav()
+      this.props.changeNav(index)
     }
   }
 

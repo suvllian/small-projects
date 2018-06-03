@@ -6,6 +6,7 @@ import Login from './pages/login/index.jsx';
 import Register from './pages/login/register.jsx';
 import Upload from './pages/upload/index.jsx';
 import Person from './pages/person/index.jsx';
+import Search from './pages/home/search.jsx';
 
 const router =
   <Route path='/' component={App}>
@@ -14,6 +15,7 @@ const router =
     <Route path='/login' component={Login} />
     <Route path='/register' component={Register} />
     <Route path='/upload' component={Upload} />
+    <Route path='/search' component={Search} />
     <Route path='/person/:type' component={Person} />
   </Route>
 

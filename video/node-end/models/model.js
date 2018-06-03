@@ -8,19 +8,31 @@ function Model(sqlStatement) {
   this.result = {}
 }
 
-Model.prototype.operate = function(keys) {
+Model.prototype.operate = function(keys, isSimple) {
   // this指向发生变化
   var $that = this
   return new Promise((resolve, reject) => {
     pool.getConnection(function(err, connection) {
-      connection.query(sqlStatementList[$that.sqlStatement], keys, function(error, result) {
-        if (!error) {
-          resolve(result)
-        } else {
-          reject(error)
-        }
-        connection.release()
-      })
+      if (isSimple) {
+        connection.query($that.sqlStatement, function(error, result) {
+          if (!error) {
+            resolve(result)
+          } else {
+            reject(error)
+          }
+          connection.release()
+        })
+      } else {
+        connection.query(sqlStatementList[$that.sqlStatement], keys, function(error, result) {
+          if (!error) {
+            resolve(result)
+          } else {
+            reject(error)
+          }
+          connection.release()
+        })
+      }
+      
     })
   })
 }

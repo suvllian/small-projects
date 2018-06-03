@@ -1,10 +1,12 @@
-var express = require('express');
-var request = require('request');
-var router = express.Router();
-var utils = require('./../utils/index.js');
-var Model = require('./../models/model');
-var config = require('./../config/index.js');
-var services = require('./../services/index');
+const express = require('express');
+const request = require('request');
+const router = express.Router();
+const multer = require('multer');
+const upload = multer({ dest:'public/images/' });
+const utils = require('./../utils/index.js');
+const Model = require('./../models/model');
+const config = require('./../config/index.js');
+const services = require('./../services/index');
 
 router.get('/', function (req, res, next) {
   res.json({ author: 'suvllian' })
@@ -12,9 +14,50 @@ router.get('/', function (req, res, next) {
 
 // 获取首页信息
 router.get('/get_index_info', function (req, res, next) {
-  const { pageType } = req.query
+  const { videoClass } = req.query
 
-  new Model('query_videos').operate().then(result => {
+  new Model('query_videos').operate([videoClass]).then(result => {
+    return utils.successRes(res, {
+      data: result
+    })
+  }).catch(error => {
+    console.log(error)
+    return utils.failRes(res, {
+      msg: '获取视频列表失败'
+    })
+  })
+})
+
+// 获取视频信息
+router.get('/get_video_info', function (req, res, next) {
+  const { videoId } = req.query
+
+  new Model('query_video_info').operate([videoId]).then(result => {
+    return utils.successRes(res, {
+      data: result
+    })
+  }).catch(error => {
+    console.log(error)
+    return utils.failRes(res, {
+      msg: '获取视频列表失败'
+    })
+  })
+})
+
+
+// search value
+router.get('/search', function (req, res, next) {
+  const { searchValue } = req.query
+
+  if (!searchValue) {
+    return utils.successRes(res, {
+      data: []
+    })
+  }
+
+  const sql = "SELECT * FROM videolist WHERE title LIKE '%" + searchValue  + "%' OR content LIKE '%" + searchValue + "%'"
+
+  new Model(sql).operate([], true).then(result => {
     return utils.successRes(res, {
       data: result
     })
@@ -109,21 +152,6 @@ router.get('/comment_list', function (req, res, next) {
     return utils.failRes(res, {
       msg: '获取评论失败',
       data: req.query
-    })
-  })
-})
-
-router.post('/search', function (req, res, next) {
-  const { content } = req.body
-
-  new Model('query_video_byinput').operate([content]).then(result => {
-    return utils.successRes(res, {
-      data: []
-    })
-  }).catch(error => {
-    return utils.failRes(res, {
-      msg: '搜索失败',
-      data: req.body
     })
   })
 })
@@ -236,6 +264,30 @@ router.get('/collectLoveCount', function (req, res, next) {
     })
   })
 })
+
+router.post('/uploadFile', function (req, res, next) {
+  const { content } = req.body
+
+  new Model('query_video_byinput').operate([content]).then(result => {
+    return utils.successRes(res, {
+      data: []
+    })
+  }).catch(error => {
+    return utils.failRes(res, {
+      msg: '搜索失败',
+      data: req.body
+    })
+  })
+})
+
+// router.post('/uploadFile', upload.single('file'), (req, res, next) => {
+// 	const { file } = req
+// 	const { originalname, filename, fieldname } = file
+// 	const extension = originalname.substring(originalname.lastIndexOf('.'))
+// 	const newFileName = `${filename}${extension}`
+// 	fs.renameSync(`public/images/${filename}`, `public/images/${filename}${extension}`)
+// 	res.json({ newFileName, success: true })
+// });
 
 
 module.exports = router;

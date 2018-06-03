@@ -4,11 +4,15 @@ $logoColor: #00adb5;
 $minWidth: 1270px;
 
 .search-container {
+	display: flex;
+	align-items: center;
 	margin-left: 100px;
 	color: #000;
 }
 
 .search-input {
+	height: 20px;
+	margin-right: 20px;
 	border: 2px solid #eee;
 	border-radius: 3px;
 	padding: 4px;
@@ -146,4 +150,8 @@ $minWidth: 1270px;
 			height: $smallHeight;
 		}
 	}
+}
+
+.user-name {
+	margin-right: 20px;
 }

@@ -1,10 +1,11 @@
-import { LOGIN, PLAY, GETLIST } from '../types'
+import { LOGIN, PLAY, GETLIST, SEARCH } from '../types'
 
 const initialState = {
   userId: '',
   userName: '',
   videoId: '',
-  videoList: []
+  videoList: [],
+  searchVideos: []
 }
 
 export default function update(state = initialState, action) {
@@ -17,6 +18,9 @@ export default function update(state = initialState, action) {
       break
     case GETLIST:
       return Object.assign({}, state, { videoList: action.videoList })
+      break
+    case SEARCH:
+      return Object.assign({}, state, { searchVideos: action.searchVideos })
       break
     default:
       return state
