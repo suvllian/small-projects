@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 import { connect } from 'react-redux'
+import { logout } from './../../actions/user.js'
 
 class NavItem extends Component {
+	logout() {
+		this.props.logout()
+		hashHistory.push('/')
+	}
+
 	render() {
-		const { userName } = this.props
+		const { userName, userId } = this.props
 
 		return (
 			<ul className="nav-ul">
@@ -17,6 +23,9 @@ class NavItem extends Component {
 						</li>)
 					})
 				}
+				{
+					userId && <li className='nav-li' onClick={this.logout.bind(this)}>退出</li>
+				}
 			</ul>
 		)
 	}
@@ -26,13 +35,19 @@ class NavItem extends Component {
 	}
 }
 
-const getUserName = state => {
+const mapStateToProps = state => {
 	return {
-		userName: state.user.userName
+		userName: state.user.userName,
+		userId: state.user.userId
 	}
 }
 
+const mapDispatchToProps = dispatch => {
+	return {
+		logout: () => dispatch(logout())
+	}
+}
 export default connect(
-	getUserName
+	mapStateToProps, mapDispatchToProps
 )(NavItem)
 

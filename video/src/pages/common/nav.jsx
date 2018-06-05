@@ -35,7 +35,7 @@ class Nav extends Component {
 	}
 
 	render() {
-		console.log(this.props.searchVideos)
+		
 		return (
 			<header className="header small-header">
 				<div className="header-container">

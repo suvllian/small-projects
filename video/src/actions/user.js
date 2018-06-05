@@ -1,12 +1,17 @@
-import { LOGIN, PLAY, GETLIST, SEARCH } from '../types'
+import { LOGIN, LOGOUT, PLAY, GETLIST, SEARCH } from '../types'
 import { loginFetch } from './../api/index'
-
 
 export const login = data => {
   return {
     type: LOGIN,
     userId: data.userId,
     userName: data.username
+  }
+}
+
+export const logout = data => {
+  return {
+    type: LOGOUT
   }
 }
 

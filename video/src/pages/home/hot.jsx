@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
 const bottomHotItems = [
-	{ src: 'hot-1.jpg', title: '视频' },
-	{ src: 'hot-2.jpg', title: '视频' },
-	{ src: 'hot-3.jpg', title: '视频' }
+	{ src: '41.jpg', title: '拉丁男孩的天空' },
+	{ src: '37.jpg', title: '花儿与少年' },
+	{ src: '61.jpg', title: '犬夜叉' }
 ]
 
 export default class Hot extends Component {

@@ -126,12 +126,12 @@ class VideoPlay extends Component {
 	render() {
 		const { commentList = [], isLoved, loveCount, isCollected, collectCount, videoInfo = {} } = this.state
 		const { title, videoSrc } = videoInfo
-		console.log(videoInfo, videoSrc)
 		const loveImgSrc = isLoved ? 'love-after.png' : 'love-before.png'
 		const collectImgSrc = isCollected ? 'collect-after.png' : 'collect-before.png'
 
 		return (
 			<section className="video-container">
+			{/* <div className="mask"></div> */}
 				<div className="section-title-1">
 					<h2>{title}</h2>
 				</div>

@@ -1,3 +1,14 @@
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0.3;
+  z-index: 1000;
+  background-color: #000
+}
+
 /* 轮播图 */
 .slider {
   position: relative;
@@ -111,6 +122,7 @@
   .col-md-4 {
     cursor: pointer;
     position: relative;
+    height: 380px;
     
     &:first-child {
       background-color: #1a774a;

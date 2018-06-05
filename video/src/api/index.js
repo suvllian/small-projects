@@ -43,6 +43,16 @@ exports.searchFetch = data => {
 	return getFetch(`search?${data}`)
 }
 
+// love videos
+exports.getlLoveVideosFetch = data => {
+	return getFetch(`getLove?${data}`)
+}
+
+// love videos
+exports.getlCollectVideosFetch = data => {
+	return getFetch(`getCollect?${data}`)
+}
+
 exports.getCommentFetch = (id) => {
 	return getFetch(`comment_list?videoId=${id}`);
 }

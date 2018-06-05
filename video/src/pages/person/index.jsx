@@ -11,7 +11,10 @@ class Person extends Component {
     super(props)
 
     this.state = {
-      navs: ['我的收藏', '我喜欢的']
+      navs: ['我的收藏', '我喜欢的'],
+      navId: 0,
+      lovesVideos: [],
+      collectVideos: []
     }
   }
 
@@ -20,17 +23,54 @@ class Person extends Component {
 
     if (!userId) {
 			hashHistory.push('/login')
-		}
+    }
+    
+    this.getLoveVideos()
+  }
+
+  getLoveVideos () {
+    const { userId } = this.props
+    const that = this
+
+    api.getlLoveVideosFetch(`userId=${userId}`).then(res => {
+      that.setState({
+        lovesVideos: res.data
+      })
+    })
+  }
+
+
+  getCollectVideos () {
+    const { userId } = this.props
+    const that = this
+
+    api.getlCollectVideosFetch(`userId=${userId}`).then(res => {
+      that.setState({
+        collectVideos: res.data
+      })
+    })
+  }
+
+  changeNav (index) {
+    if (index) {
+      this.getCollectVideos()
+    } else {
+      this.getLoveVideos()
+    }
+
+    this.setState({
+      navId: index
+    })
   }
 
   render() {
-    const { videoList } = this.props
-    const { navs } = this.state
+    const { navs, lovesVideos, collectVideos, navId } = this.state
+    const showVideos = navId ? collectVideos : lovesVideos
 
     return (
       <section className="person-center">
-        <Nav navs={navs} toRouter="/person/love" />
-        <VideoList videoList={videoList} title="" />
+        <Nav navs={navs} toRouter="/person/love" changeNav={this.changeNav.bind(this)} />
+        <VideoList videoList={lovesVideos} title="" />
       </section>
     )
   }
@@ -38,8 +78,7 @@ class Person extends Component {
 
 const mapStateToProps = state => {
   return {
-    userId: state.user.userId,
-    videoList: state.user.videoList
+    userId: state.user.userId
   }
 }
 

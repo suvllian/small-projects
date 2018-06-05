@@ -4,9 +4,17 @@ module.exports = {
 	 */
 	query_videos: 'SELECT * FROM videolist WHERE videoType = ? ORDER BY id DESC LIMIT 0, 8',
 	/**
+	 * 根据访问量获取视频
+	 */
+	query_videos_byCount: 'SELECT * FROM videolist ORDER BY readCount DESC LIMIT 0, 8',
+	/**
 	 * 获取视频信息
 	 */
 	query_video_info: 'SELECT * FROM videolist WHERE id = ?',
+	/**
+	 * 更新查看数量
+	 */
+	update_video_count: 'UPDATE videolist SET readCount = readCount + 1 WHERE id= ?',
 	/**
 	 * 查询用户密码
 	 */
@@ -59,5 +67,13 @@ module.exports = {
 	 * 查询某个视频被喜欢的数量
 	 */
 	query_video_love_count: 'SELECT COUNT(*) FROM lovevideo WHERE videoId = ?',
+	/**
+	 * 查询指定用户喜欢的视频
+	 */
+	query_love_video_byUserId: 'SELECT * FROM lovevideo, videolist WHERE lovevideo.authorId = ? AND lovevideo.videoId = videolist.id',
+	/**
+	 * 查询指定用户收藏的视频
+	 */
+	query_collect_video_byUserId: 'SELECT * FROM collectvideo, videolist WHERE collectvideo.authorId = ? AND collectvideo.videoId = videolist.id'
 }
 

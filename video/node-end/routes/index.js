@@ -17,8 +17,15 @@ router.get('/get_index_info', function (req, res, next) {
   const { videoClass } = req.query
 
   new Model('query_videos').operate([videoClass]).then(result => {
-    return utils.successRes(res, {
-      data: result
+    new Model('query_videos_byCount').operate([]).then(hotResult => {
+      return utils.successRes(res, {
+        data: !!parseInt(videoClass) ? result : hotResult
+      })
+    }).catch(error => {
+      console.log(error)
+      return utils.failRes(res, {
+        msg: '获取视频列表失败'
+      })
     })
   }).catch(error => {
     console.log(error)
@@ -33,9 +40,17 @@ router.get('/get_video_info', function (req, res, next) {
   const { videoId } = req.query
 
   new Model('query_video_info').operate([videoId]).then(result => {
-    return utils.successRes(res, {
-      data: result
+    new Model('update_video_count').operate([videoId]).then(res => {
+      return utils.successRes(res, {
+        data: result
+      })
+    }).catch(error => {
+      console.log(error)
+      return utils.failRes(res, {
+        msg: '更新访问量失败'
+      })
     })
+
   }).catch(error => {
     console.log(error)
     return utils.failRes(res, {
@@ -151,6 +166,40 @@ router.get('/comment_list', function (req, res, next) {
     console.log(error)
     return utils.failRes(res, {
       msg: '获取评论失败',
+      data: req.query
+    })
+  })
+})
+
+// 
+router.get('/getLove', function (req, res, next) {
+  const { userId } = req.query
+
+  new Model('query_love_video_byUserId').operate([userId]).then(result => {
+    return utils.successRes(res, {
+      data: result
+    })
+  }).catch(error => {
+    console.log(error)
+    return utils.failRes(res, {
+      msg: '获取视频失败',
+      data: req.query
+    })
+  })
+})
+
+// 
+router.get('/getCollect', function (req, res, next) {
+  const { userId } = req.query
+
+  new Model('query_collect_video_byUserId').operate([userId]).then(result => {
+    return utils.successRes(res, {
+      data: result
+    })
+  }).catch(error => {
+    console.log(error)
+    return utils.failRes(res, {
+      msg: '获取视频失败',
       data: req.query
     })
   })

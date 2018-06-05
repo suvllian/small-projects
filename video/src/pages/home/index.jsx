@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 import api from './../../api'
 import { fetchPostsIfNeeded } from '../../actions/user'
 import { getVideoList } from './../../actions/user.js'
+import { formatTime } from '../../utils/index.js'
 
 class Home extends Component {
 	constructor(props) {
@@ -76,7 +77,7 @@ class Home extends Component {
 														<img src={require("./../../assets/" + video.imgSrc)} className="response-img" />
 													</div>
 													<div className="recommend-info">
-														<p>{video.title} - {video.aTime}</p>
+														<p>{video.title} - {formatTime(video.aTime).split(' ')[0]}</p>
 														<p>{video.content}</p>
 													</div>
 												</Link>

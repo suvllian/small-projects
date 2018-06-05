@@ -10,6 +10,10 @@
 	display:flex;
 	align-items: center;
 	justify-content: center;
+
+	a {
+		color: #000;
+	}
 }
 
 .login-box{
@@ -55,4 +59,13 @@
 .login-bottom {
 	padding-top: 18px;
 	text-align: right;
+}
+
+.age-check {
+	margin-top: -22px;
+	padding-bottom: 12px;
+}
+
+.check-box {
+	margin-right: 12px;
 }

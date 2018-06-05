@@ -22,7 +22,7 @@ class Upload extends Component {
 		e.preventDefault()
 		const file = this.refs.videoFile.files[0]
 		const reader = new FileReader()
-		
+
 		reader.readAsDataURL(file)
 		reader.onload = function (e) {
 			const data = e.target.result
@@ -37,8 +37,13 @@ class Upload extends Component {
 
 		return (
 			<section className="upload">
-				<form method="post" enctype="multipart/form-data" onSubmit={this.submitFile.bind(this)}>
-					<input type="file" name="videoFile" className="choose-file-btn" ref="videoFile" />
+				<form method="post" enctype="multipart/form-data" onSubmit={this.submitFile.bind(this)} className="upload-form">
+					<div className="upload-btn">
+						<input type="file" name="videoFile" className="choose-file-btn" ref="videoFile" />
+						<div className="comment-submit">
+							<button>选择视频</button>
+						</div>
+					</div>
 					<div className="comment-submit">
 						<button>上传视频</button>
 					</div>

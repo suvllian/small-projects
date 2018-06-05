@@ -14,6 +14,7 @@ class SearchResult extends Component {
 
 	render() {
 		const { searchVideos } = this.props
+		console.log('searchVideos', searchVideos)
 
 		return (
 			<div>

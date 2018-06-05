@@ -4,7 +4,42 @@
   padding-top: 80px;
   margin: 0 auto;
 
+  &-form {
+    display: flex;
+  }
+
   .comment-submit {
     text-align: left;
+  }
+
+  .upload-btn {
+    margin-right: 20px;
+    position: relative;
+    cursor: pointer;
+    color: #888;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1
+  }
+
+  .upload-btn input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer;
+  }
+
+  .upload-btn:hover {
+    color: #444;
+    background: #eee;
+    border-color: #ccc;
+    text-decoration: none;
   }
 }

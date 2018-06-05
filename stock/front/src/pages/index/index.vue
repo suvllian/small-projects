@@ -17,7 +17,7 @@
           <el-button @click="shanghai">沪股通</el-button>
         </p>
         <p v-else>
-          <el-button type="primary" @click="getData">搜索</el-button>
+          <el-button type="primary" @click="open">搜索</el-button>
           <el-button @click="reset">重置</el-button>
           <el-button @click="shenzhen">深股通</el-button>
           <el-button type="primary" @click="shanghai">沪股通</el-button>
@@ -100,6 +100,18 @@ export default {
       this.state=1;
       this.UPDATECODE(this.code)
       this.getData();
+    },
+
+    open() {
+      this.$alert('未满18岁禁止观看', '影片限制分级', {
+        confirmButtonText: 'OK',
+        callback: action => {
+          this.$message({
+            type: 'info',
+            message: `action: ${ action }`
+          });
+        }
+      });
     }
   },
   watch: {
