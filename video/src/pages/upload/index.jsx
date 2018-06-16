@@ -32,8 +32,11 @@ class Upload extends Component {
 	}
 
 	render() {
-		const { videoList } = this.props
-		const list = [...videoList, ...videoList]
+		const { videoList = [] } = this.props
+		const { newVideos = [], hotVideos = [] } = videoList
+		const list = [...hotVideos]
+
+		list.length = 4
 
 		return (
 			<section className="upload">

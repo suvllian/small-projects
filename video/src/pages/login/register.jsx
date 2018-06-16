@@ -34,7 +34,13 @@ export default class Register extends Component {
 		}
 
 		api.registerFetch(`username=${username}&password=${password}`).then(res => {
-			console.log(res)
+			const { success, msg = '注册失败' } = res
+
+			if (success) {
+				hashHistory.push('/')
+			} else {
+				alert(msg)
+			}
 		}).catch(err => {
 			console.log(res)
 			alert(err)

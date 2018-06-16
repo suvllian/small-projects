@@ -8,6 +8,10 @@ module.exports = {
 	 */
 	query_videos_byCount: 'SELECT * FROM videolist ORDER BY readCount DESC LIMIT 0, 8',
 	/**
+	 * 根据访问量获取某分类下视频
+	 */
+	query_videos_byCount_class: 'SELECT * FROM videolist WHERE videoType = ? ORDER BY readCount DESC LIMIT 0, 8',
+	/**
 	 * 获取视频信息
 	 */
 	query_video_info: 'SELECT * FROM videolist WHERE id = ?',

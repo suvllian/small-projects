@@ -16,10 +16,13 @@ router.get('/', function (req, res, next) {
 router.get('/get_index_info', function (req, res, next) {
   const { videoClass } = req.query
 
-  new Model('query_videos').operate([videoClass]).then(result => {
+  if (!parseInt(videoClass)) {
     new Model('query_videos_byCount').operate([]).then(hotResult => {
       return utils.successRes(res, {
-        data: !!parseInt(videoClass) ? result : hotResult
+        data: {
+          newVideos: [],
+          hotVideos: hotResult
+        } 
       })
     }).catch(error => {
       console.log(error)
@@ -27,12 +30,28 @@ router.get('/get_index_info', function (req, res, next) {
         msg: '获取视频列表失败'
       })
     })
-  }).catch(error => {
-    console.log(error)
-    return utils.failRes(res, {
-      msg: '获取视频列表失败'
+  } else {
+    new Model('query_videos').operate([videoClass]).then(result => {
+      new Model('query_videos_byCount_class').operate([videoClass]).then(hotResult => {
+        return utils.successRes(res, {
+          data: {
+            newVideos: result,
+            hotVideos: hotResult
+          } 
+        })
+      }).catch(error => {
+        console.log(error)
+        return utils.failRes(res, {
+          msg: '获取视频列表失败'
+        })
+      })
+    }).catch(error => {
+      console.log(error)
+      return utils.failRes(res, {
+        msg: '获取视频列表失败'
+      })
     })
-  })
+  }
 })
 
 // 获取视频信息
@@ -40,7 +59,7 @@ router.get('/get_video_info', function (req, res, next) {
   const { videoId } = req.query
 
   new Model('query_video_info').operate([videoId]).then(result => {
-    new Model('update_video_count').operate([videoId]).then(res => {
+    new Model('update_video_count').operate([videoId]).then(updateRes => {
       return utils.successRes(res, {
         data: result
       })

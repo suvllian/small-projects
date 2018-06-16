@@ -29,8 +29,8 @@ class VideoList extends Component {
 									<div className="news-block">
 										<img src={require("./../../assets/" + item.imgSrc)} className="response-img" />
 										<div className="news-info">
-											<p>{item.title} - {formatTime(item.aTime).split(' ')[0]}</p>
-											<p>{item.content}</p>
+											<p className="video-title">{item.title} - {formatTime(item.aTime).split(' ')[0]}</p>
+											<p className="video-intro">{item.content}</p>
 										</div>
 									</div>
 								</Link>

@@ -4,6 +4,8 @@ import { hashHistory, Link } from 'react-router'
 import api from './../../api/index'
 import { formatTime } from '../../utils/index.js'
 
+const URL = location.href.includes('localhost') ?  "http://127.0.0.1/" : "http://suvllian.top/"
+
 class VideoPlay extends Component {
 	constructor(props) {
 		super(props)
@@ -22,6 +24,15 @@ class VideoPlay extends Component {
 		this.getResource()
 		this.getCommentList()
 		this.getLoveCollectCount()
+		this.judgeAge()
+	}
+
+	judgeAge () {
+		const { videoId } = this.props
+		if (videoId === 10) {
+			alert('未满十八岁，禁止观看')
+			hashHistory.push('/')
+		}
 	}
 
 	getResource() {
@@ -136,8 +147,8 @@ class VideoPlay extends Component {
 					<h2>{title}</h2>
 				</div>
 				<div className="row">
-					{videoSrc && <video className="video-player" src={videoSrc}
-						controls="controls" autoPlay="autoplay" />}
+					{videoSrc && <video className="video-player" src={URL + videoSrc}
+						controls="controls" autoPlay="autoplay" height="540" width="960" />}
 				</div>
 
 				<div className="operate-list">

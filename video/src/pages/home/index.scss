@@ -40,6 +40,14 @@
 }
 /* 轮播图 */
 
+.video-intro, .video-title {
+  max-width: 250px;
+  word-break:keep-all;         
+  white-space:nowrap;         
+  overflow:hidden;               
+  text-overflow:ellipsis;  
+}
+
 /* 联系我们 */
 .connect {
 	textarea{

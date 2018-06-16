@@ -40,7 +40,15 @@ function fetchPosts(fetchApi, actionApi, data) {
   return dispatch => {
     return fetchApi(data).then((data) => {
       dispatch(actionApi(data))
-    }).catch((e) => { console.log(e.msg) })
+    }).catch((e) => { 
+      const { success, msg } = res
+
+			if (success) {
+				hashHistory.push('/')
+			} else {
+				alert(msg)
+			}
+    })
   }
 }
 

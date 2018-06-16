@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { hashHistory, Link } from 'react-router'
 import Slider from './slider.jsx';
 import HomeNav from './nav.jsx';
 import VideoList from './video-list.jsx';
@@ -8,7 +8,7 @@ import Hot from './hot.jsx'
 import { connect } from 'react-redux'
 import api from './../../api'
 import { fetchPostsIfNeeded } from '../../actions/user'
-import { getVideoList } from './../../actions/user.js'
+import { getVideoList, play } from './../../actions/user.js'
 import { formatTime } from '../../utils/index.js'
 
 class Home extends Component {
@@ -18,7 +18,7 @@ class Home extends Component {
 		this.state = {
 			videoList: [],
 			videoClass: 0,
-			navs: ['首页', '电视剧', '电影', '综艺', '纪录片', '音乐', '动画'],
+			navs: ['首页', '电视剧', '电影', '综艺', '纪录片', 'MV', '动画'],
 			playStatus: false //list
 		}
 
@@ -32,6 +32,8 @@ class Home extends Component {
 
 	getIndexData() {
 		const { fetchPostsIfNeeded } = this.props
+
+		console.log(this.props)
 		const { videoClass } = this.state
 
 		fetchPostsIfNeeded(api.getIndexData, getVideoList, `videoClass=${videoClass}`)
@@ -46,11 +48,18 @@ class Home extends Component {
 		})
 	}
 
+	linkTo(id, e) {
+		e.preventDefault()
+		this.props.setVideoId(id)
+		hashHistory.push(`/home/${id}`)
+	}
+
 	render() {
-		const { navs } = this.state;
-		const { videoList } = this.props
+		const { navs, videoClass } = this.state;
+		const { videoList = [] } = this.props
+		const { newVideos = [], hotVideos = [] } = videoList
 		const showType = this.props.params.type
-		const recommendVideo = [...videoList]
+		const recommendVideo = [...hotVideos]
 
 		recommendVideo.length = 4
 
@@ -61,26 +70,32 @@ class Home extends Component {
 				{
 					showType == 'list' || !showType ? (
 						<div>
-							<VideoList videoList={videoList} title="最新视频" />
-							<VideoList videoList={videoList} title="最热视频" />
+							{
+								videoClass ? (
+									<div>
+										<VideoList videoList={newVideos} title="最新视频" />
+										<VideoList videoList={hotVideos} title="最热视频" />
+									</div>
+								) : <VideoList videoList={hotVideos} title="最热视频" />
+							}
 						</div>
 					) : (
 							<div className="video-play-container">
-								<VideoPlay title='视频' src="http://suvllian.top/walk.mp4" />
+								<VideoPlay key={new Date()} />
 								<div className="video-play-list">
 									<h3>视频列表</h3>
 									{
 										recommendVideo && recommendVideo.map((video, index) => (
-											<div className="recommend-item" key={index}>
-												<Link to={`/home/${video.id}`}>
+											<div className="recommend-item" key={index} onClick={this.linkTo.bind(this, video.id)}>
+												<a href="#">
 													<div className="recommend-img">
 														<img src={require("./../../assets/" + video.imgSrc)} className="response-img" />
 													</div>
 													<div className="recommend-info">
 														<p>{video.title} - {formatTime(video.aTime).split(' ')[0]}</p>
-														<p>{video.content}</p>
+														<p className="video-intro">{video.content}</p>
 													</div>
-												</Link>
+												</a>
 											</div>
 										))
 									}
@@ -100,8 +115,10 @@ const mapStateToProps = state => {
 	}
 }
 
+function setVideoId(id) {
+  return (dispatch, getState) => dispatch(play({videoId: id}))
+}
+
 export default connect(
-	mapStateToProps, {
-		fetchPostsIfNeeded
-	}
+	mapStateToProps, { setVideoId, fetchPostsIfNeeded }
 )(Home)

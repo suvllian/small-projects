@@ -25,7 +25,7 @@ class Person extends Component {
 			hashHistory.push('/login')
     }
     
-    this.getLoveVideos()
+    this.getCollectVideos()
   }
 
   getLoveVideos () {
@@ -45,6 +45,7 @@ class Person extends Component {
     const that = this
 
     api.getlCollectVideosFetch(`userId=${userId}`).then(res => {
+      console.log(res)
       that.setState({
         collectVideos: res.data
       })
@@ -53,9 +54,9 @@ class Person extends Component {
 
   changeNav (index) {
     if (index) {
-      this.getCollectVideos()
-    } else {
       this.getLoveVideos()
+    } else {
+      this.getCollectVideos()
     }
 
     this.setState({
@@ -65,12 +66,14 @@ class Person extends Component {
 
   render() {
     const { navs, lovesVideos, collectVideos, navId } = this.state
-    const showVideos = navId ? collectVideos : lovesVideos
+    const showVideos = navId ? lovesVideos : collectVideos
+
+    console.log(showVideos)
 
     return (
       <section className="person-center">
         <Nav navs={navs} toRouter="/person/love" changeNav={this.changeNav.bind(this)} />
-        <VideoList videoList={lovesVideos} title="" />
+        <VideoList videoList={showVideos} key={new Date()} />
       </section>
     )
   }
